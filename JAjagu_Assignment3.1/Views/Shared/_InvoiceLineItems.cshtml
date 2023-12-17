@@ -1,0 +1,9 @@
+﻿@model CustomerInvoicesViewModel
+
+@foreach (var lineItem in Model.ActiveLineItems)
+{
+    <tr>
+        <td>@lineItem.Description</td>
+        <td>@lineItem.Amount</td>
+    </tr>
+}

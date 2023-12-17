@@ -1,0 +1,108 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+
+.input-validation-error {
+    border: 2px solid #dc3545; /* same red as text-danger */
+    background-color: #faebd7; /* antique white */
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.validation-summary-errors ul {
+    list-style: none;
+}
+
+.links-container {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+}
+
+.nav-link {
+    text-decoration: none;
+    margin: 0 5px; /* Add some margin between links for spacing */
+}
+
+.sideBarContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+    gap: 100px; /* Adjust the gap as needed */
+}
+
+.sideBar3 {
+    padding: 10px;
+}
+
+.sideBar3 img {
+    max-width: 100%; 
+    height: auto; 
+}
+
+.sideBar2 img {
+    max-width: 450px; 
+    height: auto;
+    float:right;
+    margin-top:20px;
+}
+
+.homeView img {
+    max-width: 100%; 
+    height: auto;
+}
+
+.editCustomer img {
+    max-width: 400px; 
+    height: auto; 
+}
+
+.addCustomer img {
+    max-width: 250px; 
+    height: auto;
+}
+
+.editContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.addContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    width: 80%;
+    box-sizing: border-box;
+}
+
+.right {
+    width: 20%;
+    box-sizing: border-box;
+}
+
+.selected-invoice {
+    background-color: #dff0d8;
+    font-weight: bold;
+}

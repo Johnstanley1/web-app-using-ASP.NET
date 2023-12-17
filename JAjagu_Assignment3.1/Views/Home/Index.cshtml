@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <h1 class="display-4">Payment Manager App</h1>
+    <p>
+        Check out customer <a asp-controller="Payment" asp-action="Customers"
+        style="text-decoration:none" asp-route-lowerBound="A" asp-route-upperBound="E">payments and invoices</a>
+    </p>
+</div>
+<div class="homeView">
+    <img src="/css/homeView.webp" />
+</div>

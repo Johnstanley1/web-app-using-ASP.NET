@@ -1,0 +1,12 @@
+﻿@model Customer
+
+<a asp-controller="Payment" asp-action="CustomerInvoices" asp-route-id="@Model.CustomerId"
+   style="text-decoration:none">Invoices</a>
+<span class="mx-1">|</span>
+<a asp-controller="Payment" asp-action="EditCustomer" asp-route-id="@Model.CustomerId"
+   style="text-decoration:none">Edit</a>
+<span class="mx-1">|</span>
+@using (Html.BeginForm("DeleteCustomerById", "Payment", new { id = Model.CustomerId }, FormMethod.Post))
+{
+    <button type="submit" class="btn btn-link" style="text-decoration: none; background: none; border: none; cursor: pointer;">Delete</button>
+}

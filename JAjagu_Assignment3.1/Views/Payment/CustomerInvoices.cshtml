@@ -1,0 +1,132 @@
+﻿@model CustomerInvoicesViewModel
+
+@{
+	ViewData["Title"] = "Manage Invoices";
+}
+
+<br />
+<div class="sideBarContainer">
+	<div class="sideBar1">
+		<h4><strong>Invoices for @Model?.Customers?.Name</strong></h4>
+
+		<p>Address: @Model?.Customers?.Address1</p>
+
+		<p>Invoices</p>
+		@if (Model.ActiveInvoices != null && Model.ActiveInvoices.Any())
+		{
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Invoice#</th>
+						<th>Due Date</th>
+						<th>Amount Paid</th>
+					</tr>
+				</thead>
+				@foreach (var invoice in Model.ActiveInvoices)
+				{
+					<tbody>
+						<tr class="@(invoice.InvoiceId == Model.SelectedInvoiceId ? "selected-invoice" : "")">
+							<td>
+								<a asp-controller="Payment" asp-action="CustomerInvoices"
+								   asp-route-id="@invoice.InvoiceId" style="text-decoration:none">@invoice.InvoiceId</a>
+							</td>
+							<td>@invoice.InvoiceDueDate?.ToString("d")</td>
+							<td>@invoice.PaymentTotal</td>
+						</tr>
+
+					</tbody>
+				}
+			</table>
+
+		}
+		else
+		{
+			<p>No line invoice found for this customer.</p>
+		}
+		
+		<form asp-controller="Payment" asp-action="CustomerInvoices" method="post">
+
+			<div class="form-group">
+				<label asp-for="Invoices.InvoiceDate">Date</label>
+				<input type="datetime" asp-for="Invoices.InvoiceDate" value="@Model?.Invoices?.InvoiceDate?.ToString("d")" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label asp-for="Invoices.PaymentTerms.Description">Terms</label>
+				<select asp-for="Invoices.PaymentTerms.Description" class="form-control">
+					<option>@Model.PaymentTerms.Description</option>
+				</select>
+			</div>
+			<input type="hidden" asp-for="@Model.Invoices.InvoiceId" />
+			<div class="form-group">
+				<label asp-for="Invoices.PaymentTotal">Amount Paid</label>
+				<input type="text" asp-for="Invoices.PaymentTotal" class="form-control" />
+			</div>
+			<br />
+			<button type="submit" class="btn btn-primary">Add Invoice</button>
+		</form>
+	</div>
+
+
+	<div class="sideBar2">
+		<a asp-controller="Payment" asp-action="Customers" style="text-decoration:none"
+		   asp-route-lowerBound="@Model.GroupRange" asp-route-upperBound="@Model.GroupRange">Return to @Model.GroupRange customer</a><br /><br />
+
+		@* <p>Terms: @(Model.ActivePaymentTerms?.FirstOrDefault()?.DueDays ?? 0) days</p> *@
+		<p>Terms: @(Model.PaymentTerms?.DueDays ?? 0) days</p>
+
+
+		@* <p>Line Items for invoice #@Model.Invoices?.InvoiceId</p> *@
+		<p>Line Items for invoice #@(Model.ActiveInvoices?.FirstOrDefault()?.InvoiceId)</p>
+
+		@if (Model.ActiveLineItems != null && Model.ActiveLineItems.Any())
+		{
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Description</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var lineItem in Model.ActiveLineItems)
+					{
+						<tr>
+							<td>@lineItem.Description</td>
+							<td>@lineItem.Amount</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+
+			<p>Total: $@Model.TotalLineItems</p>
+		}
+		else
+		{
+			<p>No line items found for this invoice.</p>
+		}
+
+		<form asp-controller="Payment" asp-action="CustomerInvoices" method="post">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="InvoiceLineItems.Description">Description</label>
+				<input type="text" asp-for="InvoiceLineItems.Description" class="form-control" />
+
+			</div>
+
+			<div class="form-group">
+				<label asp-for="InvoiceLineItems.Amount">Amount</label>
+				<input type="text" asp-for="InvoiceLineItems.Amount" class="form-control" />
+			</div>
+
+			<input type="hidden" asp-for="@Model.InvoiceLineItems.InvoiceLineItemId" />
+
+			<br />
+			<button type="submit" class="btn btn-primary">Add Line Items</button>
+		</form>
+
+	</div>
+
+	<div class="sideBar3">
+		<img src="~/css/invoieView.jpg" />
+	</div>
+</div>

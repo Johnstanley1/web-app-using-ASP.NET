@@ -1,0 +1,83 @@
+﻿@model List<CustomerByGroupViewModel>
+
+@{
+	ViewData["Title"] = "All Customers";
+}
+
+@if (TempData["message"] is string message && TempData["UndoLink"] is string undoLink)
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		<p>
+			@Html.Raw(message) <a href="@undoLink" style="text-decoration:none">Undo</a> this delete.
+		</p>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+}
+
+<a asp-controller="Payment" asp-action="AddCustomer" style="text-decoration:none">Add New Customer</a>
+ or return <a asp-controller="Home" asp-action="Index" style="text-decoration:none">home</a>
+
+ <br /><br />
+
+<table class="table table-bordered table-striped table-hover">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Address</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		@foreach (CustomerByGroupViewModel customer in Model)
+		{
+			<tr>
+				<td>@customer?.Customer?.Name</td>
+				<td>@customer?.Customer?.Address1</td>
+				<td class="links-container">
+					<a asp-controller="Payment" asp-action="CustomerInvoices" asp-route-id="@customer.Customer.CustomerId"
+					   class="nav-link">Invoices</a>
+					<span class="mx-1">|</span>
+					<a asp-controller="Payment" asp-action="EditCustomer" asp-route-id="@customer.Customer.CustomerId"
+					   class="nav-link">Edit</a>
+					<span class="mx-1">|</span>
+					<form asp-controller="Payment" asp-action="DeleteCustomer" asp-route-id="@customer.Customer.CustomerId" method="post">
+						<button class="btn btn-link nav-link" type="submit">Delete</button>
+						<input type="hidden" asp-for="@customer.Customer.CustomerId" />
+					</form>
+				</td>
+			</tr>
+		}
+
+	</tbody>
+</table>
+
+<div class="container">
+	<ul class="pagination">
+		<li class="page-item  shadow p-1 bg-white square pl-3 pr-3">
+			<a class="page-link" asp-controller="Payment" asp-action="Customers"
+			   style="text-decoration:none" asp-route-lowerBound="A" asp-route-upperBound="E">A - E</a>
+		</li>
+
+		<li class="page-item  shadow p-1 bg-white rounded pl-3 pr-3">
+			<a class="page-link" asp-controller="Payment" asp-action="Customers"
+			   style="text-decoration:none" asp-route-lowerBound="F" asp-route-upperBound="K">F - K</a>
+		</li>
+
+		<li class="page-item  shadow p-1 bg-white rounded pl-3 pr-3">
+			<a class="page-link" asp-controller="Payment" asp-action="Customers"
+			   style="text-decoration:none" asp-route-lowerBound="L" asp-route-upperBound="R">L - R</a>
+		</li>
+
+		<li class="page-item  shadow p-1 bg-white rounded pl-3 pr-3">
+			<a class="page-link" asp-controller="Payment" asp-action="Customers"
+			   style="text-decoration:none" asp-route-lowerBound="S" asp-route-upperBound="Z">S -Z</a>
+		</li>
+	</ul>
+	<div class="sideBar2">
+		<img src="~/css/listView.jpg" />
+	</div>
+</div>
+
+

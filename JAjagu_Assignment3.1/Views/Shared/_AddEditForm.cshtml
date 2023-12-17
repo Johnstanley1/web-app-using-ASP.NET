@@ -1,0 +1,277 @@
+﻿@model AddCustomerViewModel
+
+@if (Model.IsNewCustomer == true)
+{
+	<form asp-controller="Payment" asp-action="AddCustomer" method="post" enctype="application/x-www-form-urlencoded">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.Name">Name:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.Name" />
+				</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.Name" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.Address1">Address 1:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.Address1" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.Address1" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.Address2">Address 2:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.Address2" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.Address2" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.City">City:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.City" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.City" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.ProvinceOrState">Province/State:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.ProvinceOrState" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.ProvinceOrState" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.ZipOrPostalCode">Zip/Postal Code:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.ZipOrPostalCode" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.ZipOrPostalCode" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.Phone">Phone:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.Phone" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.Phone" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.ContactFirstName">Contact first name:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.ContactFirstName" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.ContactFirstName" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.ContactLastName">Contact last name:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.ContactLastName" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.ContactLastName" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.ContactEmail">Contact email:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.ContactEmail" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.ContactEmail" class="text-danger"></span>
+			</div>
+		</div>
+		<input type="hidden" asp-for="@Model.IsNewCustomer" />
+
+		<br />
+
+		<button type="submit" class="btn btn-primary">Add</button>
+
+		<a asp-controller="Payment" asp-action="Customers"
+		   asp-route-lowerBound="@Model.GroupRange" asp-route-upperBound="@Model.GroupRange"
+		   class="btn btn-primary">Cancel</a>
+
+	</form>
+}
+
+@if (!Model.IsNewCustomer)
+{
+	<form asp-controller="Payment" asp-action="EditCustomer" method="post" enctype="application/x-www-form-urlencoded">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.Name">Name:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.Name" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.Name" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.Address1">Address 1:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.Address1" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.Address1" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.Address2">Address 2:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.Address2" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.Address2" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.City">City:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.City" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.City" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.ProvinceOrState">Province/State:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.ProvinceOrState" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.ProvinceOrState" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.ZipOrPostalCode">Zip/Postal Code:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.ZipOrPostalCode" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.ZipOrPostalCode" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.Phone">Phone:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.Phone" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.Phone" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.ContactFirstName">Contact first name:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.ContactFirstName" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.ContactFirstName" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.ContactLastName">Contact last name:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.ContactLastName" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.ContactLastName" class="text-danger"></span>
+			</div>
+		</div>
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-2">
+				<label asp-for="@Model.GroupedCustomer.ContactEmail">Contact email:</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" asp-for="@Model.GroupedCustomer.ContactEmail" />
+			</div>
+			<div class="col-sm-6">
+				<span asp-validation-for="@Model.GroupedCustomer.ContactEmail" class="text-danger"></span>
+			</div>
+		</div>
+
+		<input type="hidden" asp-for="@Model.GroupedCustomer.CustomerId" />
+		<input type="hidden" asp-for="@Model.IsNewCustomer" />
+
+		<br />
+
+		<button type="submit" class="btn btn-primary">Update</button>
+
+		<a asp-controller="Payment" asp-action="Customers"
+		   asp-route-lowerBound="@Model.GroupRange" asp-route-upperBound="@Model.GroupRange"
+		   class="btn btn-primary">Cancel</a>
+
+	</form> 
+}

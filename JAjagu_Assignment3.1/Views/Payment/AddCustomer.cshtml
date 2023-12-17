@@ -1,0 +1,17 @@
+﻿@model AddCustomerViewModel
+
+@{
+	ViewData["Title"] = "Add new customer";
+}
+
+<div class="addContainer">
+	<div class="left">
+		@await Html.PartialAsync("_AddEditForm", Model)
+	</div>
+
+	<div class="right">
+		<div class="addCustomer">
+			<img src="~/css/addCustomer.jpg" />
+		</div>
+	</div>
+</div>
